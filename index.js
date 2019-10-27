@@ -72,14 +72,12 @@ app.post('/', function (req, res) {
     var password = req.body.password;
 
     var passwordDecrypted = decryptMsg(password);
-    var latitudeDecrypted = decryptMsg(latitude);
-    var longitudeDecrypted = decryptMsg(longitude);
     if (listOfAllowedSensorIDs.includes(sensorID) && passwordDecrypted === registeredPassword) {
         var referencePath = 'animalsLive/';
         var userReference = firebase.database().ref(referencePath);
         userReference.push({
-            latitude: latitudeDecrypted,
-            longitude: longitudeDecrypted,
+            latitude: latitude,
+            longitude: longitude,
             type: type
         },
             function (error) {
